@@ -1,0 +1,35 @@
+# General Python ignores
+__pycache__/
+*.py[cod]
+*.so
+*.swp
+*.swo
+*.DS_Store
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Streamlit configuration
+.streamlit/
+.streamlit/secrets.toml
+
+# Jupyter Notebook checkpoints (if applicable)
+.ipynb_checkpoints/
+
+# Logs and temporary files
+logs/
+*.log
+*.csv
+*.json
+
+# Ignore credentials and API keys
+*.pem
+*.key
+*.p12
+*.crt
+*.pfx
+
+# MacOS files
+.DS_Store
