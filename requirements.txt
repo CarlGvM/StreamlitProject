@@ -1,18 +1,10 @@
-# Streamlit
+
 streamlit
-
-# Google Sheets connection
 st-gsheets-connection
-
-# Data processing
 pandas
 numpy
-
-# Data visualization
 matplotlib
 seaborn
-
-# Other dependencies
 random
 time
 ssl
