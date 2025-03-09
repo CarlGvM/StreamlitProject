@@ -1,6 +1,5 @@
 import streamlit as st
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 import numpy as np
 import pandas as pd
@@ -10,20 +9,16 @@ import matplotlib.pyplot as plt
 import random
 import time
 
+ssl._create_default_https_context = ssl._create_unverified_context
 
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
-client = gspread.authorize(creds)
+conn = st.connection("gsheets", type = GSheetsConnection)
 
-spreadsheet_url = "https://docs.google.com/spreadsheets/d/1ThK1QNFalgtDpkvoee_3d8Lx3o8eEiG6ZF1f1gJQiyQ/edit?usp=sharing"
-
-sheet = client.open_by_url(spreadsheet_url).sheet1
+df = conn.read(spreadsheet = "https://docs.google.com/spreadsheets/d/1ThK1QNFalgtDpkvoee_3d8Lx3o8eEiG6ZF1f1gJQiyQ/edit?usp=sharing")
 
 
-data = sheet.get_all_records()
-df = pd.DataFrame(data)
-
-st.title("Which year had the most natural disasters?")
+st.title("Which year had the most natural disasters, based ont the data?")
+st.markdown("Press the button to see the graph")
+st.write("###Data from google Sheets")
 st.dataframe(df)
 
 
