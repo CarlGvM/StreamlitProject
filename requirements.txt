@@ -1,14 +1,2 @@
-# Core Streamlit
-streamlit
-
-# Google Sheets Connection
-gspread
-oauth2client
-
-# Data Handling
-pandas
-numpy
-
-# Data Visualization
-matplotlib
+st-gsheets connection
 seaborn
