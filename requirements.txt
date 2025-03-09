@@ -1,2 +1,2 @@
-st-gsheets connection
+st-gsheets-connection
 seaborn
