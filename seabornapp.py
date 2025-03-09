@@ -6,13 +6,15 @@ import seaborn as sns
 import matplotlib.pyplot as plt 
 import random
 import time
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
 
 conn = st.connection("gsheets", type = GSheetsConnection)
 
-df = conn.read()
+df = conn.read(spreadsheet = "https://docs.google.com/spreadsheets/d/1ThK1QNFalgtDpkvoee_3d8Lx3o8eEiG6ZF1f1gJQiyQ/edit?usp=sharing")
 
-for row in df.itertuples():
-    st.write(f"{row.name} has a :{row.pet}:")
 
 st.title("Which year had the most natural disasters, based ont the data?")
 st.markdown("Press the button to see the graph")
