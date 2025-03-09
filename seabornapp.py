@@ -1,25 +1,32 @@
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import pandas as pd
+import numpy as np
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt 
 import random
 import time
-import ssl
-
-ssl._create_default_https_context = ssl._create_unverified_context
 
 
-conn = st.connection("gsheets", type = GSheetsConnection)
+cope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
+client = gspread.authorize(creds)
 
-df = conn.read(spreadsheet = "https://docs.google.com/spreadsheets/d/1ThK1QNFalgtDpkvoee_3d8Lx3o8eEiG6ZF1f1gJQiyQ/edit?usp=sharing")
+spreadsheet_url = "https://docs.google.com/spreadsheets/d/1ThK1QNFalgtDpkvoee_3d8Lx3o8eEiG6ZF1f1gJQiyQ/edit?usp=sharing"
+
+sheet = client.open_by_url(spreadsheet_url).sheet1
 
 
-st.title("Which year had the most natural disasters, based ont the data?")
-st.markdown("Press the button to see the graph")
-st.write("###Data from google Sheets")
+data = sheet.get_all_records()
+df = pd.DataFrame(data)
+
+st.title("Which year had the most natural disasters?")
 st.dataframe(df)
+
+
 
 #session state
 if "start_time" not in st.session_state:
